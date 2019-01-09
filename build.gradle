@@ -1,0 +1,30 @@
+buildscript {
+    ext {
+        elasticsearchVersion = "6.5.4"
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.elasticsearch.gradle:build-tools:$elasticsearchVersion"
+    }
+}
+
+group = 'org.elasticsearch'
+version = "$elasticsearchVersion-1.0"
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'elasticsearch.esplugin'
+
+licenseFile = rootProject.file('LICENSE.txt')
+noticeFile = rootProject.file('NOTICE.txt')
+esplugin {
+    name 'ann'
+    description 'Approximate Nearest Neighbor Elasticsearch Plugin'
+    classname 'org.elasticsearch.plugin.AnnPlugin'
+    licenseFile rootProject.file('LICENSE.txt')
+    noticeFile rootProject.file('NOTICE.txt')
+}
+
