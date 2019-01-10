@@ -13,6 +13,8 @@
  */
 package org.elasticsearch.analysis;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.elasticsearch.ann.ArrayUtils;
@@ -22,6 +24,8 @@ import org.elasticsearch.ann.ProductQuantizer;
 import java.io.IOException;
 
 public class IvfpqTokenizer extends Tokenizer {
+
+    private static final Logger LOGGER = LogManager.getLogger(IvfpqTokenizer.class);
 
     private final CharTermAttribute charTermAttribute = addAttribute(CharTermAttribute.class);
 

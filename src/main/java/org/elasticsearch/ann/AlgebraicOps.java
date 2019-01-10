@@ -72,9 +72,29 @@ public class AlgebraicOps {
         }
     }
 
+    public static int findNearest(float[] x, float[] y, int ny, int d) {
+        int nearest = -1;
+        float minDistance = Float.MAX_VALUE;
+        float[] ypart = new float[d];
+        for (int i = 0, ioffset = 0; i < ny; ++i, ioffset += d) {
+            System.arraycopy(y, ioffset, ypart, 0, d);
+            float distance = 0;
+            for (int j = 0; j < d; ++j) {
+                final float diff = ypart[j] - x[j];
+                distance += diff * diff;
+            }
+            if (distance < minDistance) {
+                minDistance = distance;
+                nearest = i;
+            }
+        }
+        return nearest;
+    }
+
     private static void saxpy(int ny, float x, float[] y, float[] z) {
         for (int i = 0; i < ny; ++i) {
             z[i] += x * y[i];
         }
     }
+
 }

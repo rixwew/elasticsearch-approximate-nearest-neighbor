@@ -1,0 +1,11 @@
+float:
+  any:
+    ann-elasticsearch:
+      docker-tag: ann-benchmarks-ann-elasticsearch
+      module: ann_benchmarks.algorithms.ann_elasticsearch
+      constructor: ANNElasticsearch
+      base-args: ["@metric"]
+      run-groups:
+        base:
+          args: [[32,64,128,256,512,1024,2048,4096]]
+          query-args: [[1, 5, 10, 50, 100, 200]]

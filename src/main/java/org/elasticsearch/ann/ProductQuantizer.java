@@ -54,35 +54,14 @@ public class ProductQuantizer {
 
     public short[] getCodes(float[] feature) {
         short[] codes = new short[m];
-        float[] dist = new float[m];
-        findNearestNeighbor(feature, pqCentroids, codes, dist, m, ksub, dsub);
+        float[] fsub = new float[dsub];
+        float[] csub = new float[ksub * dsub];
+        for (int i = 0, istart = 0; i < m; ++i, istart += dsub) {
+            System.arraycopy(feature, istart, fsub, 0, dsub);
+            System.arraycopy(pqCentroids, ksub * istart, csub, 0, ksub * dsub);
+            codes[i] = (short) AlgebraicOps.findNearest(fsub, csub, ksub, dsub);
+        }
         return codes;
     }
 
-    private static void findNearestNeighbor(float[] x, float[] y, short[] nearest, float[] distances,
-                                            int nx, int ny, int d) {
-        float distance;
-        float[] xsq = new float[nx];
-        float[] ysq = new float[ny];
-        float[] ytr = new float[ny * d];
-        float[] ip = new float[nx * ny];
-        AlgebraicOps.square(x, xsq, nx, d);
-        AlgebraicOps.square(y, ysq, ny, d);
-        AlgebraicOps.transpose(y, ytr, ny, d);
-        AlgebraicOps.multiply(x, ytr, ip, nx, ny, d);
-        for (int i0 = 0, offset = 0; i0 < nx; ++i0, offset += ny) {
-            int index = 0;
-            float minDistance = distances[i0];
-            final float xvalue = xsq[i0];
-            for (int j0 = 0; j0 < ny; ++j0) {
-                distance = xvalue + ysq[j0] - 2 * ip[offset + j0];
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    index = j0;
-                }
-            }
-            distances[i0] = minDistance;
-            nearest[i0] = (short) index;
-        }
-    }
 }

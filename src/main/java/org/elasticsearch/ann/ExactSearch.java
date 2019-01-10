@@ -39,22 +39,7 @@ public class ExactSearch {
     }
 
     public int searchNearest(float[] feature) {
-        int centroidIndex = -1;
-        float minDistance = Float.MAX_VALUE;
-        float[] cpart = new float[d];
-        for (int i = 0, ioffset = 0; i < nlist; ++i, ioffset += d) {
-            System.arraycopy(centroids, ioffset, cpart, 0, d);
-            float distance = 0;
-            for (int j = 0; j < d; ++j) {
-                final float diff = cpart[j] - feature[j];
-                distance += diff * diff;
-            }
-            if (distance < minDistance) {
-                minDistance = distance;
-                centroidIndex = i;
-            }
-        }
-        return centroidIndex;
+        return AlgebraicOps.findNearest(feature, centroids, nlist, d);
     }
 
     public int[] searchNearest(float[] feature, int k) {

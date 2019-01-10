@@ -13,6 +13,8 @@
  */
 package org.elasticsearch.search;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.LeafReaderContext;
@@ -44,6 +46,8 @@ import java.util.Map;
 import java.util.Objects;
 
 class IvfpqQuery {
+
+    private static final Logger LOGGER = LogManager.getLogger(IvfpqQuery.class);
 
     private QueryShardContext context;
 

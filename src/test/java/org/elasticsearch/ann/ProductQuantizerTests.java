@@ -49,4 +49,14 @@ public class ProductQuantizerTests extends LuceneTestCase {
         assertEquals(0.25 * 0.25, value, Float.MIN_NORMAL);
     }
 
+    public void testGetCodes01() {
+        int d = 4;
+        int m = 2;
+        int ksub = 2;
+        float[] pqCentroids = new float[]{0, 0, 0.25F, 0, 0.25F, 0, 0, 0};
+        ProductQuantizer pq = new ProductQuantizer(d, m, ksub, pqCentroids);
+        float[] feature = new float[]{0.25F, 0, 0.25F, 0};
+        short[] codes = pq.getCodes(feature);
+        assertArrayEquals(new short[]{1, 0}, codes);
+    }
 }
