@@ -61,7 +61,7 @@ public class ExactSearch {
         float[] distances = new float[nlist];
         AlgebraicOps.l2distance(centroids, feature, distances, nlist, d);
         long[] encoded = new long[distances.length];
-        for (int i = 0; i < d; ++i) {
+        for (int i = 0; i < nlist; ++i) {
             encoded[i] = (((long) Float.floatToIntBits(distances[i])) << 32) | (i & 0xffffffffL);
         }
         Arrays.sort(encoded);
