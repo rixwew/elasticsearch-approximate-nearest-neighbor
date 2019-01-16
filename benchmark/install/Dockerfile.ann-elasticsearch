@@ -30,6 +30,6 @@ RUN cd elasticsearch-approximate-nearest-neighbor && \
     rm -rf elasticsearch-approximate-nearest-neighbor
 
 # install dependent packages
-RUN pip install sympy elasticsearch
+RUN pip install sympy elasticsearch tqdm
 
 ENTRYPOINT ["python", "run_algorithm.py"]

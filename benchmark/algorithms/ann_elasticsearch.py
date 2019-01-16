@@ -7,6 +7,7 @@ import time
 import elasticsearch
 import elasticsearch.helpers
 import sympy
+from tqdm import tqdm
 
 sys.path.append("install/lib-faiss")
 import numpy
@@ -105,18 +106,18 @@ class ANNElasticsearch(BaseANN):
             }
         })
 
-    def add_vectors(self, vectors, batch_size=512):
-        for i in range(0, len(vectors), batch_size):
-            offset = i * batch_size
+    def add_vectors(self, vectors, batch_size=1024):
+        for i in tqdm(range(0, vectors.shape[0], batch_size)):
             actions = [{
                 '_index': 'vectors',
                 '_type': 'vector',
-                '_id': offset + j,
+                '_id': i + j,
                 '_source': {
                     'vector': ','.join(map(str, vector))
                 }
-            } for j, vector in enumerate(vectors[i * batch_size:(i + 1) * batch_size])]
+            } for j, vector in enumerate(vectors[i:i+batch_size])]
             elasticsearch.helpers.bulk(self.client, actions)
+        print('create index: finish:', self.client.count(index='vectors', doc_type='vector'))
 
     def __str__(self):
         return 'ANN-Elasticsearch(n_list=%d, n_probe=%d)' % (self.n_list, self.n_probe)

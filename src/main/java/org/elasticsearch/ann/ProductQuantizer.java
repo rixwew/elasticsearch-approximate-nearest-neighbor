@@ -54,12 +54,12 @@ public class ProductQuantizer {
 
     public short[] getCodes(float[] feature) {
         short[] codes = new short[m];
-        float[] fsub = new float[dsub];
-        float[] csub = new float[ksub * dsub];
-        for (int i = 0, istart = 0; i < m; ++i, istart += dsub) {
-            System.arraycopy(feature, istart, fsub, 0, dsub);
-            System.arraycopy(pqCentroids, ksub * istart, csub, 0, ksub * dsub);
-            codes[i] = (short) AlgebraicOps.findNearest(fsub, csub, ksub, dsub);
+        float[] fpart = new float[dsub];
+        float[] cpart = new float[ksub * dsub];
+        for (int i = 0, ioffset = 0; i < m; ++i, ioffset += dsub) {
+            System.arraycopy(feature, ioffset, fpart, 0, dsub);
+            System.arraycopy(pqCentroids, ksub * ioffset, cpart, 0, ksub * dsub);
+            codes[i] = (short) AlgebraicOps.findNearest(fpart, cpart, ksub, dsub);
         }
         return codes;
     }
