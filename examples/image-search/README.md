@@ -102,7 +102,7 @@ python search_example.py --query "./images/143700.jpg"
 
 ### Sample Image Query
 
-<img src="/images/143700.jpg" width="100" />
+<img src="images/143700.jpg" width="100" />
 
 ### Search Result
 
