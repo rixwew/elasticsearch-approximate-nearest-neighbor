@@ -30,7 +30,7 @@ This plugin provides custom mapper type, analyzer, and search query.
 ### Create mapping
 
 Before you create mapping, product quantizer parameters has to be trained.  
-See [example](./examples/lib/common.py) code.
+See [example](./examples/lib/common.py#L4-L10) code.
 
     PUT sample_images
 
