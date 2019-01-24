@@ -103,15 +103,15 @@ python search_example.py --query "./images/143700.jpg"
 
 ### Sample Image Query
 
-<img src="/images/143700.jpg" width="100" />
+<img src="images/143700.jpg" width="100" />
 
 ### Search Result
 
 
 <p float="left">
-  <img src="/images/126201.jpg" width="100" /> 
-  <img src="/images/126200.jpg" width="100" />
-  <img src="/images/101504.jpg" width="100" />
-  <img src="/images/101502.jpg" width="100" />
-  <img src="/images/101503.jpg" width="100" />
+  <img src="images/126201.jpg" width="100" /> 
+  <img src="images/126200.jpg" width="100" />
+  <img src="images/101504.jpg" width="100" />
+  <img src="images/101502.jpg" width="100" />
+  <img src="images/101503.jpg" width="100" />
 </p>
