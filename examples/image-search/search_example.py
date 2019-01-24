@@ -34,14 +34,14 @@ def get_features(image_encoder, image_path_iter, use_cuda, batch_size=64):
     return names, np.concatenate(feats, axis=0)
 
 
-def main(query, result_size, dataset_path, m, use_cuda):
+def main(query, result_size, dataset_path, nlist, m, use_cuda):
     image_encoder = ImageEncoder().eval()
     if use_cuda:
         image_encoder = image_encoder.cuda()
     es = elasticsearch.Elasticsearch()
     client = SearchClient(es, index_name='images', type_name='image')
     names, feats = get_features(image_encoder, Path(dataset_path).iterdir(), use_cuda)
-    coarse_centroids, pq_centroids, ksub, dsub = fit_pq_params(feats, feats.shape[1], m)
+    coarse_centroids, pq_centroids, ksub, dsub = fit_pq_params(feats, feats.shape[1], nlist, m)
     client.create_mapping(feats.shape[1], m, ksub, coarse_centroids, pq_centroids)
     client.add_vectors(names, feats)
     _, encoded_query = get_features(image_encoder, [query], use_cuda, batch_size=1)
@@ -56,6 +56,7 @@ if __name__ == '__main__':
     parser.add_argument('--query', required=True)
     parser.add_argument('--result_size', type=int, default=5)
     parser.add_argument('--dataset', default='dataset/jpg')
+    parser.add_argument('--nlist', type=int, default=8)
     parser.add_argument('--m', type=int, default=64)
     parser.add_argument('--use_cuda', type=bool, default=True)
     args = parser.parse_args()
@@ -63,5 +64,6 @@ if __name__ == '__main__':
     main(query=args.query,
          result_size=args.result_size,
          dataset_path=args.dataset,
+         nlist=args.nlist,
          m=args.m,
          use_cuda=args.use_cuda)

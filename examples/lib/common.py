@@ -1,9 +1,9 @@
 import faiss
 
 
-def fit_pq_params(xb, d, m):
+def fit_pq_params(xb, d, nlist, m):
     quantizer = faiss.IndexFlatL2(d)
-    index = faiss.IndexIVFPQ(quantizer, d, 8, m, 8)
+    index = faiss.IndexIVFPQ(quantizer, d, nlist, m, 4)
     index.train(xb)
     coarse_centroids = [quantizer.xb.at(i) for i in range(quantizer.xb.size())]
     pq_centroids = [index.pq.centroids.at(i) for i in range(index.pq.centroids.size())]
@@ -37,9 +37,7 @@ class SearchClient(object):
                     'fields': ['vector']
                 }
             },
-            "sort": [
-                {"_score": {"order": "asc"}},
-            ],
+            'sort': {'_score': {'order': 'asc'}},
             'size': result_size
         }
         response = self.client.search(self.index_name, body=query)

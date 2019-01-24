@@ -14,9 +14,10 @@
 bash prepare.sh
 ```
 
-## Search answers using elasticsearch plugin
+## Search similar images using elasticsearch plugin
 
 ```bash
+export PYTHONPATH=$PATH_TO_SCRIPT_DIR/lib:$PYTHONPATH
 python search_example.py --query "./images/143700.jpg"
                          --result_size 5
 ```

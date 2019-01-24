@@ -95,7 +95,7 @@ The ivfpq_query within the search request body could be used with other elastics
 {
   "query": {
     "ivfpq_query": {
-      "query": "",
+      "query": "0.02125333994626999,0.000217707478441298,...,0.001304438104853034",
       "fields": ["feature"]
     }
   },

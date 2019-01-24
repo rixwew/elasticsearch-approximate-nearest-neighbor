@@ -1,0 +1,3 @@
+[submodule "examples/question-answering/dataset"]
+	path = examples/question-answering/dataset
+	url = https://github.com/shuzi/insuranceQA.git
